@@ -3,14 +3,21 @@
  * unwanted properties.
  */
 function parseAsJSON(node, parent) {
+  //const exist = tagName
+  let i = 0;
+  for (const child of parent) {
+    const empty = child.value === '\n';
+    if (empty) {
+      parent.splice(i, 1);
+    }
+    i++;
+  }
+
   /**
    * Element node creates an isolated children array to
    * allow nested elements
    */
   if (node.type === 'element') {
-    if (node.tagName === 'editor-example') {
-      console.log('editor-example', node.children[1]);
-    }
     const childs = [];
 
     /**
@@ -33,7 +40,7 @@ function parseAsJSON(node, parent) {
     if (node.tagName === 'template') {
       const templateContent = [];
       node.content.children.forEach((templateNode) =>
-        parseAsJSON(templateNode, templateContent),
+        parseAsJSON(templateNode, templateContent, d),
       );
       filtered.content = templateContent;
     }
@@ -41,7 +48,9 @@ function parseAsJSON(node, parent) {
     parent.push(filtered);
 
     if (node.children) {
-      node.children.forEach((child) => parseAsJSON(child, childs));
+      node.children
+        .filter((child) => child.value !== '\n')
+        .forEach((child) => parseAsJSON(child, childs));
     }
 
     return;
@@ -55,6 +64,7 @@ function parseAsJSON(node, parent) {
       type: 'text',
       value: node.value,
     });
+    // node.value !== '\n' && parent.push(node.value);
     return;
   }
 

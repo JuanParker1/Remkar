@@ -85,25 +85,36 @@ const toAst = (h, node) => (highlighted) => {
   return highlighted;
 };
 
-export const Code = (highlighter: any) => (h, node) => {
+// export const Code = (highlighter: any) => (h, node) => {
+//   const lang = node.lang + ' ' + (node.meta || '');
+//   const { language, lineHighlights, fileName } = parseThematicBlock(lang);
+//   const code = node.value ? detab(node.value + '\n') : '';
+
+//   if (!highlighter) {
+//     return prismHighlighter(
+//       code,
+//       language,
+//       { lineHighlights, fileName },
+//       { h, node },
+//     );
+//   }
+
+//   const highlightedCode = highlighter(
+//     code,
+//     language,
+//     { lineHighlights, fileName },
+//     { h, node, u },
+//   );
+//   return toAst(h, node)(highlightedCode);
+// };
+
+export function Code(h, node) {
   const lang = node.lang + ' ' + (node.meta || '');
+  console.log(node);
   const { language, lineHighlights, fileName } = parseThematicBlock(lang);
-  const code = node.value ? detab(node.value + '\n') : '';
-
-  if (!highlighter) {
-    return prismHighlighter(
-      code,
-      language,
-      { lineHighlights, fileName },
-      { h, node },
-    );
-  }
-
-  const highlightedCode = highlighter(
-    code,
-    language,
-    { lineHighlights, fileName },
-    { h, node, u },
-  );
-  return toAst(h, node)(highlightedCode);
-};
+  //  const code = node.value ? detab(node.value + '\n') : '';
+  return h(node, 'editor-example', {
+    className: ['language'],
+    code: node.value,
+  });
+}

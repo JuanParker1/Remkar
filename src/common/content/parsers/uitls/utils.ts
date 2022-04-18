@@ -13,6 +13,7 @@ export const getDefaults = ({ dev = false } = {}) => ({
   markdown: {
     tocDepth: 3,
     remarkPlugins: [
+      'remark-react',
       'remark-squeeze-paragraphs',
       'remark-slug',
       'remark-autolink-headings',
