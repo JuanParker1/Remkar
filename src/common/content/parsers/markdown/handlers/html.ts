@@ -8,7 +8,6 @@ export function html(h, node) {
   if (tagName) {
     node.value = node.value.replace(tagName, paramCase(tagName));
   }
-  console.log('html', node);
 
   return handlers.html(h, node);
 }

@@ -40,7 +40,7 @@ function parseAsJSON(node, parent) {
     if (node.tagName === 'template') {
       const templateContent = [];
       node.content.children.forEach((templateNode) =>
-        parseAsJSON(templateNode, templateContent, d),
+        parseAsJSON(templateNode, templateContent),
       );
       filtered.content = templateContent;
     }

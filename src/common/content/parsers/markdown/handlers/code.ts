@@ -110,11 +110,30 @@ const toAst = (h, node) => (highlighted) => {
 
 export function Code(h, node) {
   const lang = node.lang + ' ' + (node.meta || '');
-  console.log(node);
   const { language, lineHighlights, fileName } = parseThematicBlock(lang);
   //  const code = node.value ? detab(node.value + '\n') : '';
   return h(node, 'editor-example', {
     className: ['language'],
+    lang: language,
     code: node.value,
   });
+}
+
+export function H1(h, node) {
+  console.log('h1', node);
+  const value = node.children.find((nd) => nd.value);
+  console.log('value', value);
+  return h(
+    node,
+    'h' + node.depth,
+    {
+      className: ['language'],
+      text: value.value,
+      component: 'h' + node.depth,
+      style: {
+        fontFamily: 'sohne, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      },
+    },
+    [value],
+  );
 }
