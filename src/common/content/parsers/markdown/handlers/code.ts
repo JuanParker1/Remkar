@@ -112,6 +112,7 @@ export function Code(h, node) {
   const lang = node.lang + ' ' + (node.meta || '');
   const { language, lineHighlights, fileName } = parseThematicBlock(lang);
   //  const code = node.value ? detab(node.value + '\n') : '';
+  console.log('node ', node);
   return h(node, 'editor-example', {
     className: ['language'],
     lang: language,
@@ -120,9 +121,7 @@ export function Code(h, node) {
 }
 
 export function H1(h, node) {
-  console.log('h1', node);
   const value = node.children.find((nd) => nd.value);
-  console.log('value', value);
   return h(
     node,
     'h' + node.depth,
