@@ -124,11 +124,11 @@ export function H1(h, node) {
   const value = node.children.find((nd) => nd.value);
   return h(
     node,
-    'h' + node.depth,
+    'heading',
     {
       className: ['language'],
       text: value.value,
-      component: 'h' + node.depth,
+      component: 'h' + (node.depth + 2),
       style: {
         fontFamily: 'sohne, "Helvetica Neue", Helvetica, Arial, sans-serif',
       },
